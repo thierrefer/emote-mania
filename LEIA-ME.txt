@@ -1,0 +1,14 @@
+EMOTE MANIA - pacote PWA para Android
+
+Conteúdo:
+- index.html: galeria
+- manifest.webmanifest: metadados de instalação
+- sw.js: cache básico para abrir a galeria offline depois da primeira visita
+- icon.svg: ícone
+
+IMPORTANTE:
+Para instalar como aplicativo pelo Chrome, estes arquivos precisam estar publicados em um endereço HTTPS.
+Depois de abrir o endereço no Chrome do Android, use o menu ⋮ e escolha "Instalar app" ou "Adicionar à tela inicial" (o texto varia).
+Este ZIP não é um APK e não instala sozinho.
+O protótipo começa com exemplos e não inclui a coleção completa de emotes oficiais.
+Os arquivos que você adicionar na galeria não são salvos permanentemente pelo protótipo; mantenha os originais no celular.

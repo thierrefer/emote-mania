@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#152b53">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Emote Mania • Galeria</title>
+<style>
+:root{--navy:#152b53;--blue:#2368c9;--gold:#ffd45a;--cream:#fff8e8;--ink:#172747;--muted:#71809b;--pink:#ff7fa5}
+*{box-sizing:border-box}body{margin:0;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;background:linear-gradient(180deg,#eaf4ff,#fff8e8 55%,#f5edff);color:var(--ink);min-height:100vh}
+header{background:var(--navy);color:white;padding:18px 16px 22px;border-radius:0 0 28px 28px;box-shadow:0 8px 22px #132b5225}
+.top{display:flex;align-items:center;gap:12px;max-width:900px;margin:auto}.logo{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#ffdf65,#ff9d3d);font-size:30px;box-shadow:inset 0 -4px #d8792e55}
+h1{font-size:24px;line-height:1.05;margin:0}.subtitle{font-size:13px;color:#c9dcff;margin-top:5px}
+.wrap{max-width:900px;margin:auto;padding:16px}.welcome{background:white;border:2px solid #e0eaff;border-radius:22px;padding:15px;display:flex;gap:12px;align-items:center;box-shadow:0 5px 14px #1c46700d}.welcome .star{font-size:34px}.welcome strong{display:block;font-size:16px}.welcome p{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+.controls{display:grid;grid-template-columns:1fr auto;gap:9px;margin:16px 0 12px}.search{min-width:0;border:2px solid #dbe7f9;border-radius:15px;padding:13px 14px;font:inherit;background:white;outline:none}.search:focus{border-color:var(--blue)}button,.upload-label{font:inherit;border:0;cursor:pointer;font-weight:800}.upload-label{display:flex;align-items:center;justify-content:center;gap:7px;padding:0 14px;background:var(--gold);color:#4d3810;border-radius:15px;box-shadow:0 4px 0 #dcae35;white-space:nowrap}
+.pills{display:flex;gap:8px;overflow:auto;padding:3px 1px 10px;scrollbar-width:none}.pill{padding:9px 13px;border-radius:999px;background:#fff;border:2px solid #e0e8f6;color:#5d6e8b;white-space:nowrap}.pill.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.count{display:flex;justify-content:space-between;align-items:center;margin:7px 2px 12px;color:var(--muted);font-size:13px}.count strong{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.card{position:relative;border:2px solid #e5eafa;background:#fff;border-radius:19px;overflow:hidden;box-shadow:0 5px 12px #1c46700b;min-width:0}.card:active{transform:scale(.98)}.open{width:100%;display:block;background:transparent;padding:8px 8px 4px;color:inherit;text-align:center}.art{height:105px;border-radius:13px;background:radial-gradient(circle at 50% 35%,#fff 0,#eef5ff 70%);display:flex;align-items:center;justify-content:center;overflow:hidden}.art img,.art video{width:100%;height:100%;object-fit:contain}.art .emoji{font-size:62px;filter:drop-shadow(0 5px 2px #1a2d4015)}.name{font-size:12px;font-weight:800;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:8px 2px 4px}.kind{font-size:10px;color:var(--muted);display:block;padding-bottom:5px}.fav{position:absolute;top:7px;right:7px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 8px #0002;font-size:17px;color:#98a4b8;z-index:1}.fav.on{color:#ff5a83}.empty{grid-column:1/-1;background:#fff;border:2px dashed #d4e0f5;border-radius:20px;padding:28px 18px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--ink);margin-bottom:5px}
+footer{text-align:center;padding:26px 20px 35px;color:#71809b;font-size:11px;line-height:1.5}
+.modal{position:fixed;inset:0;background:#07152be8;z-index:10;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.viewer{width:min(100%,520px);background:#fffaf0;border-radius:26px;padding:14px;box-shadow:0 20px 70px #0005;position:relative}.close{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;background:#e9effa;font-size:22px;z-index:2}.bigart{height:min(48vh,360px);background:radial-gradient(circle,#fff 0,#e9f3ff 78%);border-radius:18px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:32px}.bigart img,.bigart video{width:100%;height:100%;object-fit:contain}.bigart .emoji{font-size:clamp(90px,25vw,180px)}.viewer h2{text-align:center;margin:14px 0 4px;font-size:21px}.viewer p{text-align:center;color:var(--muted);margin:0 0 13px;font-size:13px}.actions{display:flex;gap:8px}.action{flex:1;padding:13px;border-radius:14px;background:var(--blue);color:white}.action.secondary{background:#e8eef9;color:var(--ink)}
+.notice{margin-top:12px;padding:11px 13px;border-radius:13px;background:#fff3c8;color:#71541a;font-size:12px;line-height:1.4}
+input[type=file]{display:none}
+@media(min-width:600px){.wrap{padding:22px}.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}.art{height:130px}.name{font-size:13px}.welcome{padding:18px}.controls{margin-top:20px}}
+@media(max-width:360px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.upload-label{padding:0 10px;font-size:13px}.art{height:120px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo">🎭</div><div><h1>Emote Mania</h1><div class="subtitle">Uma galeria de carinhas para explorar ✨</div></div></div></header>
+<main class="wrap">
+<section class="welcome"><div class="star">🏆</div><div><strong>Escolha um emote e toque para ver grandão!</strong><p>Favoritos, busca e animações. Você também pode adicionar seus arquivos de emotes pelo botão amarelo.</p></div></section>
+<div class="controls"><input class="search" id="search" placeholder="🔎 Procurar emote..." aria-label="Procurar emote"><label class="upload-label" for="files">＋ Adicionar</label><input id="files" type="file" accept="image/*,video/mp4,video/webm,audio/*" multiple></div>
+<nav class="pills" aria-label="Filtros"><button class="pill active" data-filter="todos">🎉 Todos</button><button class="pill" data-filter="favoritos">💖 Favoritos</button><button class="pill" data-filter="animados">🎬 Animados</button><button class="pill" data-filter="imagens">🖼️ Imagens</button></nav>
+<div class="count"><span id="count">12 emotes</span><span>Toque para abrir 👆</span></div>
+<section class="grid" id="grid"></section>
+<div class="notice"><strong>Como completar sua galeria:</strong> toque em “＋ Adicionar” para selecionar imagens, GIFs, vídeos e sons guardados no celular e que você tenha autorização para usar. Os arquivos adicionados ficam disponíveis enquanto esta página estiver aberta; mantenha os originais no aparelho.</div>
+<div style="display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px">
+<a href="https://make.supercell.com/en/create/clash-royale/emote/assets" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;background:#fff;border:2px solid #dbe7f9;color:#2456a4;padding:13px;border-radius:15px;font-weight:800">🔗 Recursos oficiais para criadores</a>
+<a href="https://supercell.com/en/fan-content-policy/pt/" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;background:#fff;border:2px solid #dbe7f9;color:#2456a4;padding:13px;border-radius:15px;font-weight:800">📘 Regras de conteúdo para fãs</a>
+</div>
+</main>
+<footer>Projeto independente e não oficial para visualizar arquivos escolhidos pelo usuário. Clash Royale e seus recursos pertencem aos respectivos titulares. Este material não é oficial nem endossado pela Supercell. Consulte supercell.com/en/fan-content-policy/pt/.</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Visualizador de emote"><div class="viewer"><button class="close" id="close" aria-label="Fechar">×</button><div class="bigart" id="bigart"></div><h2 id="vname"></h2><p id="vdesc"></p><div class="actions"><button class="action" id="play">▶ Ver novamente</button><button class="action secondary" id="vfav">♡ Favoritar</button></div></div></div>
+<script>
+const starter=[
+{name:"Rei feliz",emoji:"👑",type:"imagem",desc:"Uma carinha real e feliz."},
+{name:"Goblins",emoji:"👺",type:"imagem",desc:"Uma expressão cheia de energia."},
+{name:"Cavaleiro",emoji:"⚔️",type:"imagem",desc:"Pronto para a próxima batalha."},
+{name:"Princesa",emoji:"🏹",type:"imagem",desc:"Mira certeira!"}, 
+{name:"Rei chorando",emoji:"😭",type:"imagem",desc:"Drama real em nível máximo."},
+{name:"Risada",emoji:"😂",type:"imagem",desc:"Quando a batalha fica engraçada."},
+{name:"Porco feliz",emoji:"🐷",type:"imagem",desc:"Uma visita suína e sorridente."},
+{name:"Mago",emoji:"🧙",type:"imagem",desc:"Um toque de magia."},
+{name:"Fantasma",emoji:"👻",type:"imagem",desc:"Apareceu para dar um oi."},
+{name:"Dragão",emoji:"🐲",type:"imagem",desc:"Uma expressão flamejante."},
+{name:"Músculos",emoji:"💪",type:"imagem",desc:"Força total!"}, 
+{name:"Coração",emoji:"💖",type:"imagem",desc:"Um emote para mandar carinho."}
+];
+let items=starter.map((x,i)=>({...x,id:"s"+i,fav:false,starter:true})), filter="todos", current=null, objectUrls=[];
+const grid=document.querySelector("#grid"), search=document.querySelector("#search"), count=document.querySelector("#count");
+function isAnimated(x){return x.type==="video"||x.type==="gif"||x.type==="audio"}
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const visible=items.filter(x=>(filter==="todos"||(filter==="favoritos"&&x.fav)||(filter==="animados"&&isAnimated(x))||(filter==="imagens"&&!isAnimated(x)))&&(`${x.name} ${x.desc||""}`.toLowerCase().includes(q)));
+ count.textContent=`${visible.length} ${visible.length===1?"emote":"emotes"}`;
+ grid.innerHTML="";
+ if(!visible.length){grid.innerHTML='<div class="empty"><b>Nenhum emote por aqui ainda 💫</b>Tente outra busca ou adicione arquivos pelo botão amarelo.</div>';return}
+ visible.forEach(x=>{
+  const card=document.createElement("article");card.className="card";
+  const fav=document.createElement("button");fav.className="fav"+(x.fav?" on":"");fav.textContent=x.fav?"♥":"♡";fav.setAttribute("aria-label",x.fav?"Remover dos favoritos":"Adicionar aos favoritos");fav.onclick=()=>{x.fav=!x.fav;render()};
+  const open=document.createElement("button");open.className="open";open.setAttribute("aria-label","Abrir "+x.name);
+  const art=document.createElement("div");art.className="art";
+  if(x.url){if(x.type==="video"){const v=document.createElement("video");v.src=x.url;v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;art.append(v)}else if(x.type==="audio"){art.innerHTML='<span class="emoji">🔊</span>'}else{const img=document.createElement("img");img.src=x.url;img.alt=x.name;art.append(img)}}else{const e=document.createElement("span");e.className="emoji";e.textContent=x.emoji;art.append(e)}
+  const name=document.createElement("span");name.className="name";name.textContent=x.name;
+  const kind=document.createElement("span");kind.className="kind";kind.textContent=x.type==="video"||x.type==="gif"?"ANIMADO":x.type==="audio"?"COM SOM":x.starter?"EXEMPLO":"IMAGEM";
+  open.append(art,name,kind);open.onclick=()=>show(x);card.append(fav,open);grid.append(card);
+ });
+}
+function show(x){current=x;const big=document.querySelector("#bigart");big.innerHTML="";
+ if(x.url&&x.type==="video"){const v=document.createElement("video");v.src=x.url;v.controls=true;v.autoplay=true;v.loop=true;v.playsInline=true;big.append(v)}
+ else if(x.url&&x.type==="audio"){const a=document.createElement("audio");a.src=x.url;a.controls=true;big.append(a);const e=document.createElement("span");e.className="emoji";e.textContent="🔊";big.append(e)}
+ else if(x.url){const img=document.createElement("img");img.src=x.url;img.alt=x.name;big.append(img)}
+ else{const e=document.createElement("span");e.className="emoji";e.textContent=x.emoji;big.append(e)}
+ document.querySelector("#vname").textContent=x.name;document.querySelector("#vdesc").textContent=x.desc||"Toque em fechar para voltar à galeria.";document.querySelector("#vfav").textContent=x.fav?"♥ Nos favoritos":"♡ Favoritar";
+ document.querySelector("#play").style.display=(x.type==="audio"||x.type==="video")?"block":"none";document.querySelector("#modal").classList.add("show");
+}
+document.querySelector("#close").onclick=()=>{document.querySelector("#modal").classList.remove("show");document.querySelector("#bigart").innerHTML="";};
+document.querySelector("#modal").addEventListener("click",e=>{if(e.target.id==="modal")document.querySelector("#close").click()});
+document.querySelector("#vfav").onclick=()=>{if(current){current.fav=!current.fav;document.querySelector("#vfav").textContent=current.fav?"♥ Nos favoritos":"♡ Favoritar";render()}};
+document.querySelector("#play").onclick=()=>{const media=document.querySelector("#bigart video, #bigart audio");if(media){media.currentTime=0;media.play()}};
+document.querySelectorAll(".pill").forEach(b=>b.onclick=()=>{document.querySelectorAll(".pill").forEach(z=>z.classList.toggle("active",z===b));filter=b.dataset.filter;render()});
+search.addEventListener("input",render);
+document.querySelector("#files").addEventListener("change",e=>{
+ [...e.target.files].forEach(file=>{
+  const url=URL.createObjectURL(file);objectUrls.push(url);
+  let type="imagem";if(file.type.startsWith("video/"))type="video";else if(file.type.startsWith("audio/"))type="audio";else if(/\.gif$/i.test(file.name))type="gif";
+  items.unshift({id:"u"+Date.now()+Math.random(),name:file.name.replace(/\.[^.]+$/,"").slice(0,45)||"Novo emote",type,url,fav:false,desc:"Arquivo adicionado por você."});
+ });
+ filter="todos";document.querySelectorAll(".pill").forEach(z=>z.classList.toggle("active",z.dataset.filter==="todos"));render();e.target.value="";
+});
+render();
+</script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>

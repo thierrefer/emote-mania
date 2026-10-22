@@ -1,0 +1,19 @@
+{
+  "name": "Emote Mania",
+  "short_name": "Emote Mania",
+  "description": "Galeria independente para visualizar emotes e arquivos escolhidos por você.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff8e8",
+  "theme_color": "#152b53",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
